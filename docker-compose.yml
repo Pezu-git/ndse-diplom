@@ -1,0 +1,46 @@
+services: 
+  library:
+    container_name: delivery
+    build: . 
+    # image: dockerpezu/library:0.0.1
+    ports:
+      - 5555:5555
+    restart: always
+    volumes:
+      - ./src:/app/src
+      - ./public:/app/public
+    environment: 
+      - PORT=5555
+      - URL_DB=mongodb://mongo:27017/deliveryDB
+    networks:
+      - mynet
+
+  mongo:
+    container_name: mongo
+    image: mongo
+    restart: always
+    environment:
+      - MONGO_INITDB_ROOT_DATABASE=db
+    ports:
+      - 27017:27017
+    volumes:
+      - ./mongodb/data:/data/db
+    networks:
+      - mynet
+        
+  mongo_express:
+    container_name: mongo_express
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: example
+    networks:
+      - mynet
+networks:
+  mynet:
+    driver: bridge
+    ipam:
+      driver: default

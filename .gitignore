@@ -1,0 +1,16 @@
+node_modules
+
+mongo/
+
+mongodb/
+
+redis/
+
+test/
+
+.env
+
+.docker-compose.test.yml
+
+
+

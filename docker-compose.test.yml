@@ -1,0 +1,23 @@
+services: 
+  mongo:
+    container_name: mongo
+    image: mongo
+    restart: always
+    environment:
+      - MONGO_INITDB_ROOT_DATABASE=db
+    ports:
+      - 27017:27017
+    volumes:
+      - ./mongodb/data:/data/db
+
+        
+  mongo_express:
+    container_name: mongo_express
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: example
+   
